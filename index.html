@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tam Kontrol</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li>
+                <a class="active" href="index.html">Temel kontrol</a>
+            </li>
+            <li>
+                <a href="anoutputs.html">İleri kontrol</a>
+            </li>
+            <li>
+                <a href="dinputs.html">Temel kontrol Grafikleri</a>
+            </li>
+            <li>
+                <a href="aninputs.html">İleri kontrol Grafikleri</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section>
+        <table>
+            <tr>
+                <th>Cihazlar</th>
+                <th>Durumu</th>
+                <th>buttonlar</th>
+                <th>Şekil</th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="Sled">LED</span> 
+                </td>
+                <td> <span id="LEDState">Biraz bekleyiniz...</span></td>
+                <td>
+                    <div class="but">
+                        <button type="button" id="LED-on" class="buttonON">aç</button>
+                        <button type="button" id="LED-off" class="buttonOFF">kabat</button>
+                        </div>
+                </td>
+                <td>
+            <img id="LEDImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span class="Shav">Havalandırma</span> 
+                </td>
+                <td >
+                    <span id="havalandirmaState">Biraz bekleyiniz...</span>
+                </td>
+                <td>
+                <div class="but">
+                    <button type="button" id="havalandirma-on" class="buttonON">aç</button>
+                    <button type="button" id="havalandirma-off" class="buttonOFF">kabat</button>
+                </div>
+                <td>
+                    <img id="havalandirmaImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+            <tr>
+                <td>    
+                    <span class="Ssu">Sulama</span> 
+                </td>
+                <td>
+                    <span id="SulamaState">Biraz bekleyiniz...</span>
+                </td>
+                <td>
+                    <div class="but">
+                        <button type="button" id="Sulama-on" class="buttonON">aç</button>
+                        <button type="button" id="Sulama-off" class="buttonOFF">kabat</button>
+                        </div>
+                </td>
+                <td>
+                    <img id="SulamaImage" src="image/bos.gif">
+                </td>
+            </tr>
+        </table>
+    </section>
+
+
+
+    <script>
+        document.getElementById('LED-on').addEventListener('click', function() {
+    const	 ts_api_key = "HDQN50SW9A3Q4EXD";
+    var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field1=1"
+    $.getJSON(url, function(data) {
+        console.log(data);
+    });
+});
+
+document.getElementById('LED-off').addEventListener('click', function() {
+    const ts_api_key = "HDQN50SW9A3Q4EXD";
+    var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field1=0"
+    $.getJSON(url, function(data) {
+        console.log(data);
+    });
+});
+
+setInterval(function() {
+// Call a function repetatively with 4 Second interval
+    getThingSpeakLEDState();
+}, 4000);
+
+function getThingSpeakLEDState() {
+    const ts_channel_id = "2287408";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+            if (myObj.field1 == 1) {
+                document.getElementById("LEDState").innerHTML = "açık";
+                document.getElementById("LEDImage").src="image/on.gif";
+            }
+            if(myObj.field1 == 0){
+                document.getElementById("LEDState").innerHTML = "kabalı";
+                document.getElementById("LEDImage").src="image/off.gif";
+            }
+        }
+    };
+    xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/1/last.json", true);
+    xhttp.send();
+}
+// end LED 
+
+// start havalandirma
+document.getElementById('havalandirma-on').addEventListener('click', function() {
+    const	 ts_api_key = "HDQN50SW9A3Q4EXD";
+    var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field2=1"
+    $.getJSON(url, function(data) {
+        console.log(data);
+    });
+});
+
+document.getElementById('havalandirma-off').addEventListener('click', function() {
+    const ts_api_key = "HDQN50SW9A3Q4EXD";
+    var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field2=0"
+    $.getJSON(url, function(data) {
+        console.log(data);
+    });
+});
+
+setInterval(function() {
+// Call a function repetatively with 4 Second interval
+    getThingSpeakhavalandirmaState();
+}, 4000);
+
+function getThingSpeakhavalandirmaState() {
+    const ts_channel_id = "2287408";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+            if (myObj.field2 == 1) {
+                document.getElementById("havalandirmaState").innerHTML = "açık";
+                document.getElementById("havalandirmaImage").src="image/on.gif";
+            }
+            if(myObj.field2 == 0){
+                document.getElementById("havalandirmaState").innerHTML = "kabalı";
+                document.getElementById("havalandirmaImage").src="image/off.gif";
+            }
+        }
+    };
+    xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/2/last.json", true);
+    xhttp.send();
+}
+// end havalandirma
+
+// start Air Conditioner
+document.getElementById('Sulama-on').addEventListener('click', function() {
+    const	 ts_api_key = "HDQN50SW9A3Q4EXD";
+    var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field3=1"
+    $.getJSON(url, function(data) {
+        console.log(data);
+    });
+});
+
+document.getElementById('Sulama-off').addEventListener('click', function() {
+    const ts_api_key = "HDQN50SW9A3Q4EXD";
+    var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field3=0"
+    $.getJSON(url, function(data) {
+        console.log(data);
+    });
+});
+
+setInterval(function() {
+// Call a function repetatively with 4 Second interval
+    getThingSpeakSulamaState();
+}, 4000);
+
+function getThingSpeakSulamaState() {
+    const ts_channel_id = "2287408";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+            if (myObj.field3 == 1) {
+                document.getElementById("SulamaState").innerHTML = "açık";
+                document.getElementById("SulamaImage").src="image/on.gif";
+            }
+            if(myObj.field3 == 0){
+                document.getElementById("SulamaState").innerHTML = "kabalı";
+                document.getElementById("SulamaImage").src="image/off.gif";
+            }
+        }
+    };
+    xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/3/last.json", true);
+    xhttp.send();
+}
+</script>
+</body>
+
+</html>

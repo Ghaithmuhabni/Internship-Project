@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tam Kontrol</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li>
+                <a  href="index.html">Temel kontrol</a>
+            </li>
+            <li>
+                <a class="active" href="anoutputs.html">İleri kontrol</a>
+            </li>
+            <li>
+                <a  href="dinputs.html">Temel kontrol Grafikleri</a>
+            </li>
+            <li>
+                <a href="aninputs.html">İleri kontrol Grafikleri</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section>
+        <table>
+            <tr>
+                <th>Cihazlar</th>
+                <th>Durumu</th>
+                <th>buttonlar</th>
+                <th>Şekil</th>
+            </tr>
+            <tr class="LED">
+                <td>
+                    <span class="Sled">LED</span> 
+                </td>
+                <td> <span id="LEDState">Biraz bekleyiniz...</span></td>
+                <td>
+                    <div class="but">
+                        <button type="button" id="LED-on" class="buttonON">aç</button>
+                        <button type="button" id="LED-off" class="buttonOFF">kabat</button>
+                        </div>
+                </td>
+                <td>
+            <img id="LEDImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+            <tr class="havalandirma">
+                <td>
+                    <span class="Shav">Havalandırma</span> 
+                </td>
+                <td >
+                    <span id="havalandirmaState">Biraz bekleyiniz...</span>
+                </td>
+                <td>
+                <div class="but">
+                    <button type="button" id="havalandirma-on" class="buttonON">aç</button>
+                    <button type="button" id="havalandirma-off" class="buttonOFF">kabat</button>
+                </div>
+                <td>
+                    <img id="havalandirmaImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+            <tr class="Sulama">
+                <td>    
+                    <span class="Ssu">Sulama</span> 
+                </td>
+                <td>
+                    <span id="SulamaState">Biraz bekleyiniz...</span>
+                </td>
+                <td>
+                    <div class="but">
+                        <button type="button" id="Sulama-on" class="buttonON">aç</button>
+                        <button type="button" id="Sulama-off" class="buttonOFF">kabat</button>
+                        </div>
+                </td>
+                <td>
+                    <img id="SulamaImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+            <tr class="toprakBesileri">
+                <td>    
+                    <span class="Sto">Toprak Besinleri</span> 
+                </td>
+
+                <td>
+                <span id="toprakBesileriState">Biraz bekleyiniz...</span>
+                </td>
+                <td>
+                    <div class="but">
+                        <button type="button" id="toprakBesileri-on" class="buttonON">aç</button>
+                        <button type="button" id="toprakBesileri-off" class="buttonOFF">kabat</button>
+                        </div>
+                </td>
+                <td>
+                    <img id="toprakBesileriImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+            <tr class="humidifier">
+                <td>    
+                    <span class="Skli">humidifier</span> 
+                </td>
+                <td>
+                    <span id="humidifierState">Biraz bekleyiniz...</span>
+                </td>
+                <td>
+                    <div class="but">
+                        <button type="button" id="humidifier-on" class="buttonON">aç</button>
+                        <button type="button" id="humidifier-off" class="buttonOFF">kabat</button>
+                        </div>
+                </td>
+                <td>
+                    <img id="humidifierImage" src="image/bos.gif">
+                </td>
+            </tr>
+
+        </table>
+    </section>
+
+<br>
+<br>
+
+    <section class="sec2">
+        <table>
+            <tr>
+                <th>Cihazlar</th>
+                <th>Hız</th>
+                <th>Kaydırıcı/Apply</th>
+            </tr>
+
+            <tr class="fanHizi">
+                <td>
+                    <span>Fan Hızı</span> 
+                </td>
+                <td>
+                    <input type="number" min="0" max="100" step="20" disabled >
+                </td>
+
+                <td>
+                <input type="range" min="0" max="100" step="20">
+                <button class="apply">Apply</button>
+                </td>
+            </tr>
+
+            <tr class="humidifierHizi">
+                <td>
+                    <span>humidifier Hızı</span> 
+                </td>
+                <td>
+                    <input type="number" min="0" max="100" step="20" disabled >
+                </td>
+
+                <td>
+                <input type="range" min="0" max="100" step="20">
+                <span></span>
+                <span></span>
+                <button class="apply">Apply</button>
+                </td>
+            </tr>
+
+            <table>
+                <tr>
+                    <th>SYSTEM</th>
+                    <th>buttonlar</th>
+                </tr>
+        
+                <tr>
+                                <td>
+                                    <p><span id="systemText">System :</span> <span id="system"></span></p>
+                                </td>
+                    <td>
+                        <button type="button" id="auto" class="auto">auto</button>
+                        <button type="button" id="manual" class="manual">manual</button>
+                    </td>
+                </tr>
+            </table>
+
+        </table>
+    </section>
+<!-- <br>
+<hr>
+<br> -->
+    <script>
+        // start thingSpeak 
+        // start LED 
+        document.getElementById('LED-on').addEventListener('click', function() {
+            const	 ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field1=1"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+    
+        document.getElementById('LED-off').addEventListener('click', function() {
+            const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field1=0"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+
+        setInterval(function() {
+        // Call a function repetatively with 4 Second interval
+            getThingSpeakLEDState();
+        }, 4000);
+
+        function getThingSpeakLEDState() {
+            const ts_channel_id = "2287407";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    if (myObj.field1 == 1) {
+                        document.getElementById("LEDState").innerHTML = "açık";
+                        document.getElementById("LEDImage").src="image/on.gif";
+                    }
+                    if(myObj.field1 == 0){
+                        document.getElementById("LEDState").innerHTML = "kabalı";
+                        document.getElementById("LEDImage").src="image/off.gif";
+                    }
+                }
+            };
+            xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/1/last.json", true);
+            xhttp.send();
+        }
+        // end LED 
+
+        // start havalandirma
+        document.getElementById('havalandirma-on').addEventListener('click', function() {
+            const	 ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field2=1"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+    
+        document.getElementById('havalandirma-off').addEventListener('click', function() {
+            const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field2=0"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+
+        setInterval(function() {
+        // Call a function repetatively with 4 Second interval
+            getThingSpeakhavalandirmaState();
+        }, 4000);
+
+        function getThingSpeakhavalandirmaState() {
+            const ts_channel_id = "2287407";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    if (myObj.field2 == 1) {
+                        document.getElementById("havalandirmaState").innerHTML = "açık";
+                        document.getElementById("havalandirmaImage").src="image/on.gif";
+                    }
+                    if(myObj.field2 == 0){
+                        document.getElementById("havalandirmaState").innerHTML = "kabalı";
+                        document.getElementById("havalandirmaImage").src="image/off.gif";
+                    }
+                }
+            };
+            xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/2/last.json", true);
+            xhttp.send();
+        }
+        // end havalandirma
+
+        // start sulama
+        document.getElementById('Sulama-on').addEventListener('click', function() {
+            const	 ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field3=1"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+    
+        document.getElementById('Sulama-off').addEventListener('click', function() {
+            const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field3=0"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+
+        setInterval(function() {
+        // Call a function repetatively with 4 Second interval
+            getThingSpeakSulamaState();
+        }, 4000);
+
+        function getThingSpeakSulamaState() {
+            const ts_channel_id = "2287407";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    if (myObj.field3 == 1) {
+                        document.getElementById("SulamaState").innerHTML = "açık";
+                        document.getElementById("SulamaImage").src="image/on.gif";
+                    }
+                    if(myObj.field3 == 0){
+                        document.getElementById("SulamaState").innerHTML = "kabalı";
+                        document.getElementById("SulamaImage").src="image/off.gif";
+                    }
+                }
+            };
+            xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/3/last.json", true);
+            xhttp.send();
+        }
+        // end sulama 
+
+        // start  tobrak besinleri 
+        document.getElementById('toprakBesileri-on').addEventListener('click', function() {
+            const	 ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field4=1"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+    
+        document.getElementById('toprakBesileri-off').addEventListener('click', function() {
+            const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field4=0"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+
+        setInterval(function() {
+        // Call a function repetatively with 4 Second interval
+            getThingSpeaktoprakBesileriState();
+        }, 4000);
+
+        function getThingSpeaktoprakBesileriState() {
+            const ts_channel_id = "2287407";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    if (myObj.field4 == 1) {
+                        document.getElementById("toprakBesileriState").innerHTML = "açık";
+                        document.getElementById("toprakBesileriImage").src="image/on.gif";
+                    }
+                    if(myObj.field4 == 0){
+                        document.getElementById("toprakBesileriState").innerHTML = "kabalı";
+                        document.getElementById("toprakBesileriImage").src="image/off.gif";
+                    }
+                }
+            };
+            xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/4/last.json", true);
+            xhttp.send();
+        }
+        // end  tobrak besinleri 
+
+        // start  humidifier 
+        document.getElementById('humidifier-on').addEventListener('click', function() {
+            const	 ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field5=1"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+    
+        document.getElementById('humidifier-off').addEventListener('click', function() {
+            const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+            var url = "http://api.thingspeak.com/update?api_key="+ ts_api_key + "&field5=0"
+            $.getJSON(url, function(data) {
+                console.log(data);
+            });
+        });
+
+        setInterval(function() {
+        // Call a function repetatively with 4 Second interval
+            getThingSpeakhumidifierState();
+        }, 4000);
+
+        function getThingSpeakhumidifierState() {
+            const ts_channel_id = "2287407";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    if (myObj.field5 == 1) {
+                        document.getElementById("humidifierState").innerHTML = "açık";
+                        document.getElementById("humidifierImage").src="image/on.gif";
+                    }
+                    if(myObj.field5 == 0){
+                        document.getElementById("humidifierState").innerHTML = "kabalı";
+                        document.getElementById("humidifierImage").src="image/off.gif";
+                    }
+                }
+            };
+            xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/5/last.json", true);
+            xhttp.send();
+        }
+        // end  humidifier 
+        // end thingSpeak
+    </script>
+
+<script>
+    // start slider and apply button thingSpeak
+    
+    // Her 10 saniyede bir veri güncellemesi yapmak için setInterval kullanımı
+    setInterval(function () {
+        // Her bir fan için güncellemeyi çağırın
+        updateFanData(7, ".humidifierHizi");
+        updateFanData(6, ".fanHizi");
+    }, 10000); 
+////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    function select(selector) {
+        return document.querySelector(selector);
+    }
+
+    function setupSlider(sliderContainer, fieldNumber) {
+        const slider = sliderContainer.querySelector("input[type='range']");
+        const applyButton = sliderContainer.querySelector("button");
+        const numberInput = sliderContainer.querySelector("input[type='number']");
+
+        let sliderValue = slider.value;
+
+        slider.addEventListener("input", function () {
+            sliderValue = slider.value;
+        });
+
+        applyButton.addEventListener("click", function () {
+            numberInput.value = sliderValue;
+            sendSliderDataToThingspeak(fieldNumber, sliderValue);
+        });
+
+        getSliderDataFromThingspeak(fieldNumber);
+    }
+
+    function sendSliderDataToThingspeak(fieldNumber, value) {
+        const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+        var url = "https://api.thingspeak.com/update?api_key=" + ts_api_key + "&field" + fieldNumber + "=" + value;
+        $.getJSON(url, function(data) {
+            console.log(data);
+        });
+    }
+
+    function getSliderDataFromThingspeak(fieldNumber) {
+        const ts_channel_id = "2287407";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                if (fieldNumber === 7) { 
+                    const fanValue = myObj.field7;
+                    updateSliderAndNumberInput(fanValue);
+                }
+            }
+        };
+        xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/" + fieldNumber + "/last.json", true);
+        xhttp.send();
+    }
+
+    function updateSliderAndNumberInput(value) {
+        const sliderContainer = document.querySelector(".humidifierHizi");
+        const slider = sliderContainer.querySelector("input[type='range']");
+        const numberInput = sliderContainer.querySelector("input[type='number']");
+        slider.value = value;
+        numberInput.value = value;
+    }
+
+    // Her 10 saniyede bir veri güncellemesi yapmak için setInterval kullanımı
+    setInterval(function () {
+        
+        updateFanData(7, ".humidifierHizi");
+    }, 10000); // 10 saniyede bir güncelleme yapmak için 10000 milisaniye bekletin
+
+    function updateFanData(fieldNumber, containerSelector) {
+        const ts_channel_id = "2287407";
+        const sliderContainer = document.querySelector(containerSelector);
+        const slider = sliderContainer.querySelector("input[type='range']");
+        const numberInput = sliderContainer.querySelector("input[type='number']");
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                const fanValue = myObj["field" + fieldNumber];
+                slider.value = fanValue;
+                numberInput.value = fanValue;
+            }
+        };
+        xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/" + fieldNumber + "/last.json", true);
+        xhttp.send();
+    }
+
+    const sliderContainers = document.querySelectorAll(".Sliders > .humidifierHizi");
+    sliderContainers.forEach(function (sliderContainer) {
+        const fieldNumber = 7; 
+        setupSlider(sliderContainer, fieldNumber);
+    });
+});
+////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    function select(selector) {
+        return document.querySelector(selector);
+    }
+
+    function setupSlider(sliderContainer, fieldNumber) {
+        const slider = sliderContainer.querySelector("input[type='range']");
+        const applyButton = sliderContainer.querySelector("button");
+        const numberInput = sliderContainer.querySelector("input[type='number']");
+
+        let sliderValue = slider.value;
+
+        slider.addEventListener("input", function () {
+            sliderValue = slider.value;
+        });
+
+        applyButton.addEventListener("click", function () {
+            numberInput.value = sliderValue;
+            sendSliderDataToThingspeak(fieldNumber, sliderValue);
+        });
+
+        getSliderDataFromThingspeak(fieldNumber);
+    }
+
+    function sendSliderDataToThingspeak(fieldNumber, value) {
+        const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+        var url = "https://api.thingspeak.com/update?api_key=" + ts_api_key + "&field" + fieldNumber + "=" + value;
+        $.getJSON(url, function(data) {
+            console.log(data);
+        });
+    }
+
+    function getSliderDataFromThingspeak(fieldNumber) {
+        const ts_channel_id = "2287407";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                if (fieldNumber === 6) { 
+                    const fanValue = myObj.field7;
+                    updateSliderAndNumberInput(fanValue);
+                }
+            }
+        };
+        xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/" + fieldNumber + "/last.json", true);
+        xhttp.send();
+    }
+
+    function updateSliderAndNumberInput(value) {
+        const sliderContainer = document.querySelector(".fanHizi");
+        const slider = sliderContainer.querySelector("input[type='range']");
+        const numberInput = sliderContainer.querySelector("input[type='number']");
+        slider.value = value;
+        numberInput.value = value;
+    }
+
+    // Her 10 saniyede bir veri güncellemesi yapmak için setInterval kullanımı
+    setInterval(function () {
+        updateFanData(6, ".fanHizi");
+    }, 10000); // 10 saniyede bir güncelleme yapmak için 10000 milisaniye bekletin
+
+    function updateFanData(fieldNumber, containerSelector) {
+        const ts_channel_id = "2287407";
+        const sliderContainer = document.querySelector(containerSelector);
+        const slider = sliderContainer.querySelector("input[type='range']");
+        const numberInput = sliderContainer.querySelector("input[type='number']");
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                const fanValue = myObj["field" + fieldNumber];
+                slider.value = fanValue;
+                numberInput.value = fanValue;
+            }
+        };
+        xhttp.open("GET", "https://api.thingspeak.com/channels/" + ts_channel_id + "/fields/" + fieldNumber + "/last.json", true);
+        xhttp.send();
+    }
+
+    const sliderContainers = document.querySelectorAll(".Sliders > .fanHizi");
+    sliderContainers.forEach(function (sliderContainer) {
+        const fieldNumber = 6; 
+        setupSlider(sliderContainer, fieldNumber);
+    });
+});
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+        // end slider and apply button thingSpeak
+
+        // //start auto manual thingSpeak
+        function updateSystemText(systemStatus) {
+    const systemText = document.getElementById('systemText');
+    const system = document.getElementById('system');
+
+    systemText.textContent = "System : " + systemStatus;
+}
+
+document.getElementById('auto').addEventListener('click', function() {
+    const button = document.getElementById('auto');
+    button.innerHTML = 'Auto';
+
+    const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+    var url = "https://api.thingspeak.com/update?api_key=" + ts_api_key + "&field8=1";
+    $.getJSON(url, function(data) {
+        console.log(data);
+        updateSystemText("Auto");
+    });
+});
+
+document.getElementById('manual').addEventListener('click', function() {
+    const button = document.getElementById('manual');
+    button.innerHTML = 'Manual';
+
+    const ts_api_key = "FCZ7FVEBI2XQ5HDT";
+    var url = "https://api.thingspeak.com/update?api_key=" + ts_api_key + "&field8=0";
+    $.getJSON(url, function(data) {
+        console.log(data);
+        updateSystemText("Manual");
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    checkSystemStatus(); // Sayfa yüklendiğinde durumu kontrol et
+    setButtonColors(); // Düğmelerin rengini ayarla
+    setInterval(function() {
+        setButtonColors();
+    }, 4000);
+});
+
+function checkSystemStatus() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+            if (myObj.field8 == 1) {
+                updateSystemText("Auto");
+            } else if (myObj.field8 == 0) {
+                updateSystemText("Manual");
+            }
+        }
+    };
+    xhttp.open("GET", "https://api.thingspeak.com/channels/2287407/fields/8/last.json", true);
+    xhttp.send();
+}
+
+        //end auto manual thingSpeak
+
+</script>
+</body>
+</html>

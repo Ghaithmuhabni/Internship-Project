@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tam Kontrol</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">Temel kontrol</a>
+            </li>
+            <li>
+                <a href="anoutputs.html">İleri kontrol</a>
+            </li>
+            <li>
+                <a href="dinputs.html">Temel kontrol Grafikleri</a>
+            </li>
+            <li>
+                <a class="active" href="aninputs.html">İleri kontrol Grafikleri</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=LED&type=step"></iframe>
+            </div>
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=havaland%C4%B1rma&type=step"></iframe>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Sulama&type=step"></iframe>
+            </div>
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Toprak+Besileri&type=step"></iframe>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Klima&type=step"></iframe>
+            </div>
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Fan+h%C4%B1z%C4%B1&type=step"></iframe>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Klima+h%C4%B1z%C4%B1&type=step"></iframe>
+            </div>
+            <div class="column">
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2287407/charts/8?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=system%28auto+yada+manual+%29&type=step"></iframe>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
